@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "server": "npx json-server data/db.json --watch --port 4000"
   },
   "dependencies": {
     "react": "^18",
