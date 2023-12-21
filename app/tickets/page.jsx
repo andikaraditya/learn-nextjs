@@ -1,6 +1,15 @@
-import TicketList from "./TicketList";
+import TicketCard from "../components/TicketCard";
 
-function Tickets() {
+async function fetchData() {
+    const res = await fetch("http://localhost:4000/tickets", {
+        next: {
+            revalidate: 0
+        }
+    })
+    return res.json()
+}
+async function Tickets() {
+    const tickets = await fetchData()
     return (
         <main>
             <nav>
@@ -9,7 +18,17 @@ function Tickets() {
                     <p><small>Currently open tickets</small></p>
                 </div>
             </nav>
-            <TicketList/>
+            {tickets.map((el) => {
+                return (
+                    <TicketCard 
+                    ticket={el}
+                    key={el.id}
+                    />
+                )
+            })}
+            {tickets.length === 0 && (
+                <p className="text-center">There are no open tickets</p>
+            )}
         </main>
     );
 }
